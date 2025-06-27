@@ -1,7 +1,6 @@
-# 🎓 TesWawasan - Kuis Edukasi Interaktif Hard++++
+# 🎓 TesWawasan - Kuis Interaktif
 
-> Belajar sambil bermain — kuis interaktif tingkat lanjut dengan tampilan modern & link pembahasan dari YouTube edukatif!
-
+> Belajar sambil bermain — kuis interaktif 
 ![Edu GIF](https://media.giphy.com/media/l3vR85PnGsBwu1PFK/giphy.gif)
 
 ---
