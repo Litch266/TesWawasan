@@ -1,0 +1,234 @@
+<!DOCTYPE html><html lang="id">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Tes Wawasan</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      background: linear-gradient(to right, #000428, #004e92);
+      margin: 0;
+      padding: 0;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+    .container {
+      background: #1e1e2f;
+      padding: 30px;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #000;
+      max-width: 700px;
+      width: 95%;
+      text-align: center;
+    }
+    h1 {
+      color: #00ffff;
+      margin-bottom: 10px;
+    }
+    #question {
+      font-size: 20px;
+      margin-bottom: 20px;
+    }
+    #options button {
+      display: block;
+      width: 100%;
+      margin: 10px 0;
+      padding: 12px;
+      background: #2c2f48;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      color: #fff;
+      font-size: 16px;
+      transition: background 0.3s;
+    }
+    #options button:hover {
+      background: #007acc;
+    }
+    #next-btn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background: #00ffcc;
+      color: #000;
+      border: none;
+      border-radius: 10px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .hidden {
+      display: none;
+    }
+    a {
+      color: #00ffff;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Tes Wawasan</h1>
+    <div id="quiz-box">
+      <div id="question">Memuat soal...</div>
+      <div id="options"></div>
+      <button id="next-btn">Soal Selanjutnya</button>
+    </div>
+    <div id="score-box" class="hidden">
+      <h2>Skor Akhir:</h2>
+      <p id="score-result"></p>
+      <button onclick="location.reload()">Main Lagi</button>
+    </div>
+  </div>  <script>
+    const questions = [
+      {
+        question: `Apa nama algoritma kriptografi publik yang paling umum digunakan saat ini?<br><small>📺 <a href='https://www.youtube.com/watch?v=7W0OoRAcIzA' target='_blank'>3Blue1Brown - Cryptography</a></small>`,
+        options: ["AES", "SHA-256", "RSA", "MD5"],
+        answer: "RSA"
+      },
+      {
+        question: `Siapakah ilmuwan yang menemukan prinsip ketidakpastian dalam mekanika kuantum?<br><small>📺 <a href='https://www.youtube.com/watch?v=7C5tP5QWmnM' target='_blank'>PBS Space Time</a></small>`,
+        options: ["Bohr", "Einstein", "Schrödinger", "Heisenberg"],
+        answer: "Heisenberg"
+      },
+      {
+        question: `Apa nama lapisan atmosfer di antara stratosfer dan termosfer?<br><small>📺 <a href='https://www.youtube.com/watch?v=QYRxj5421QU' target='_blank'>National Geographic</a></small>`,
+        options: ["Mesosfer", "Eksosfer", "Troposfer", "Ionosfer"],
+        answer: "Mesosfer"
+      },
+      {
+        question: `Siapa penulis buku 'Das Kapital'?<br><small>📺 <a href='https://www.youtube.com/watch?v=fSQgCy_iIcc' target='_blank'>The School of Life</a></small>`,
+        options: ["Adam Smith", "Karl Marx", "David Ricardo", "Engels"],
+        answer: "Karl Marx"
+      },
+      {
+        question: `Proses biologis yang menghasilkan energi tanpa oksigen disebut?<br><small>📺 <a href='https://www.youtube.com/watch?v=4fLXhM0GNJo' target='_blank'>Amoeba Sisters</a></small>`,
+        options: ["Respirasi", "Fermentasi", "Fotosintesis", "Oksidasi"],
+        answer: "Fermentasi"
+      },
+      {
+        question: `Berapa nilai integral dari e^x?<br><small>📺 <a href='https://www.youtube.com/watch?v=t3zEHGDk__A' target='_blank'>3Blue1Brown</a></small>`,
+        options: ["e^x + C", "x^e + C", "ln x + C", "1/e + C"],
+        answer: "e^x + C"
+      },
+      {
+        question: `Hukum termodinamika pertama menyatakan bahwa...<br><small>📺 <a href='https://www.youtube.com/watch?v=ZKL9lUfv_3M' target='_blank'>MinutePhysics</a></small>`,
+        options: ["Energi tak dapat diciptakan/dimusnahkan", "Entropi meningkat", "PV = nRT", "Kalor = suhu x massa"],
+        answer: "Energi tak dapat diciptakan/dimusnahkan"
+      },
+      {
+        question: `Teori yang menyatakan semua materi tersusun atas atom disebut?<br><small>📺 <a href='https://www.youtube.com/watch?v=thnDxFdkzZs' target='_blank'>CrashCourse Chemistry</a></small>`,
+        options: ["Teori Kinetik", "Teori Atom Dalton", "Model Bohr", "Teori Kuantum"],
+        answer: "Teori Atom Dalton"
+      },
+      {
+        question: `Siapa penemu teori relativitas umum?<br><small>📺 <a href='https://www.youtube.com/watch?v=ev9zrt__lec' target='_blank'>PBS Space Time</a></small>`,
+        options: ["Newton", "Planck", "Einstein", "Hawking"],
+        answer: "Einstein"
+      },
+      {
+        question: `Elemen ke-79 dalam tabel periodik adalah?<br><small>📺 <a href='https://www.youtube.com/watch?v=5Dnw46eC-0o' target='_blank'>Periodic Table of Videos</a></small>`,
+        options: ["Perak", "Emas", "Platina", "Tembaga"],
+        answer: "Emas"
+      },
+      {
+        question: `Fungsi utama ribosom dalam sel adalah?<br><small>📺 <a href='https://www.youtube.com/watch?v=2BwWavExcFI' target='_blank'>Amoeba Sisters - Ribosomes</a></small>`,
+        options: ["Transportasi", "Energi", "Sintesis protein", "Fotosintesis"],
+        answer: "Sintesis protein"
+      },
+      {
+        question: `Filsuf Yunani dengan metode tanya jawab?<br><small>📺 <a href='https://www.youtube.com/watch?v=uvYazO4zN8g' target='_blank'>The School of Life - Socrates</a></small>`,
+        options: ["Plato", "Socrates", "Aristoteles", "Heraklitus"],
+        answer: "Socrates"
+      },
+      {
+        question: `Aljabar abstrak mempelajari struktur seperti?<br><small>📺 <a href='https://www.youtube.com/watch?v=kwJz3c1p6UI' target='_blank'>Mathologer - Abstract Algebra</a></small>`,
+        options: ["Vektor", "Turunan", "Grup dan ring", "Integral"],
+        answer: "Grup dan ring"
+      },
+      {
+        question: `Istilah hukum untuk prinsip tanpa hukum tertulis?<br><small>📺 <a href='https://www.youtube.com/watch?v=aB1Mc9vZqKk' target='_blank'>LegalEagle - Common Law</a></small>`,
+        options: ["Common law", "Civil code", "Lex Talionis", "Legalism"],
+        answer: "Common law"
+      },
+      {
+        question: `Partikel pembawa gaya elektromagnetik?<br><small>📺 <a href='https://www.youtube.com/watch?v=PYsuvRNZfxE' target='_blank'>Fermilab - What is a Photon?</a></small>`,
+        options: ["Proton", "Foton", "Boson", "Neutrino"],
+        answer: "Foton"
+      },
+      {
+        question: `Satuan SI untuk tekanan adalah?<br><small>📺 <a href='https://www.youtube.com/watch?v=rRx9Rb7_7rU' target='_blank'>SciShow - Pressure</a></small>`,
+        options: ["Joule", "Watt", "Pascal", "Bar"],
+        answer: "Pascal"
+      },
+      {
+        question: `Teori ekonomi pasar menyeimbangkan diri disebut?<br><small>📺 <a href='https://www.youtube.com/watch?v=HMnMgXGBg4w' target='_blank'>CrashCourse Economics</a></small>`,
+        options: ["Keynesian", "Sosialis", "Laissez-faire", "Supply-demand"],
+        answer: "Laissez-faire"
+      },
+      {
+        question: `Siapa penemu struktur heliks ganda DNA bersama Watson?<br><small>📺 <a href='https://www.youtube.com/watch?v=8kK2zwjRV0M' target='_blank'>Kurzgesagt - DNA</a></small>`,
+        options: ["Mendel", "Crick", "Darwin", "Franklin"],
+        answer: "Crick"
+      },
+      {
+        question: `Sistem filsafat Timur tentang keharmonisan alam?<br><small>📺 <a href='https://www.youtube.com/watch?v=dFb7Hxva5rg' target='_blank'>The School of Life - Taoism</a></small>`,
+        options: ["Zen", "Taoisme", "Konfusianisme", "Shinto"],
+        answer: "Taoisme"
+      },
+      {
+        question: `Planet kerdil terbesar di tata surya?<br><small>📺 <a href='https://www.youtube.com/watch?v=KdYVJgEvilU' target='_blank'>SciShow Space - Pluto</a></small>`,
+        options: ["Ceres", "Pluto", "Haumea", "Eris"],
+        answer: "Pluto"
+      }
+    ];
+
+    let index = 0, score = 0;
+    const questionBox = document.getElementById("question");
+    const optionsBox = document.getElementById("options");
+    const nextBtn = document.getElementById("next-btn");
+    const scoreBox = document.getElementById("score-box");
+    const scoreResult = document.getElementById("score-result");
+
+    function showQuestion() {
+      const q = questions[index];
+      questionBox.innerHTML = q.question;
+      optionsBox.innerHTML = "";
+      q.options.forEach(opt => {
+        const btn = document.createElement("button");
+        btn.textContent = opt;
+        btn.onclick = () => checkAnswer(opt);
+        optionsBox.appendChild(btn);
+      });
+      nextBtn.style.display = "none";
+    }
+
+    function checkAnswer(selected) {
+      const correct = questions[index].answer;
+      const btns = optionsBox.querySelectorAll("button");
+      btns.forEach(b => {
+        b.disabled = true;
+        if (b.textContent === correct) {
+          b.style.backgroundColor = "#00c853";
+        } else if (b.textContent === selected) {
+          b.style.backgroundColor = "#d50000";
+        }
+      });
+      if (selected === correct) score += 10;
+      nextBtn.style.display = "inline-block";
+    }
+
+    nextBtn.onclick = () => {
+      index++;
+      if (index < questions.length) {
+        showQuestion();
+      } else {
+        document.getElementById("quiz-box").classList.add("hidden");
+        scoreBox.classList.remove("hidden");
+        scoreResult.textContent = `${score} dari ${questions.length * 10} poin`;
+      }
+    };
+
+    showQuestion();
+  </script></body>
+</html>
